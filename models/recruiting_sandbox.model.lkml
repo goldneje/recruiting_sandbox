@@ -8,8 +8,6 @@ datagroup: recruiting_sandbox_default_datagroup {
   max_cache_age: "1 hour"
 }
 
-# CHANGES CHANGES CHANGES
-# CHANGES WOWOWOWOW
 persist_with: recruiting_sandbox_default_datagroup
 
 explore: distribution_centers {}
