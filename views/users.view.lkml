@@ -10,16 +10,19 @@ view: users {
   }
 
   dimension: age {
+    group_label: "Customer Info"
     type: number
     sql: ${TABLE}."AGE" ;;
   }
 
   dimension: city {
+    group_label: "Address Info"
     type: string
     sql: ${TABLE}."CITY" ;;
   }
 
   dimension: country {
+    group_label: "Address Info"
     type: string
     map_layer_name: countries
     sql: ${TABLE}."COUNTRY" ;;
@@ -40,36 +43,43 @@ view: users {
   }
 
   dimension: email {
+    group_label: "Customer Info"
     type: string
     sql: ${TABLE}."EMAIL" ;;
   }
 
   dimension: first_name {
+    group_label: "Customer Info"
     type: string
     sql: ${TABLE}."FIRST_NAME" ;;
   }
 
   dimension: gender {
+    group_label: "Customer Info"
     type: string
     sql: ${TABLE}."GENDER" ;;
   }
 
   dimension: last_name {
+    group_label: "Customer Info"
     type: string
     sql: ${TABLE}."LAST_NAME" ;;
   }
 
   dimension: latitude {
+    hidden: yes
     type: number
     sql: ${TABLE}."LATITUDE" ;;
   }
 
   dimension: longitude {
+    hidden: yes
     type: number
     sql: ${TABLE}."LONGITUDE" ;;
   }
 
   dimension: state {
+    group_label: "Address Info"
     type: string
     sql: ${TABLE}."STATE" ;;
   }
@@ -80,6 +90,7 @@ view: users {
   }
 
   dimension: zip {
+    group_label: "Address Info"
     type: zipcode
     sql: ${TABLE}."ZIP" ;;
   }

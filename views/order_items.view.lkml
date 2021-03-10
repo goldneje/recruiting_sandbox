@@ -92,9 +92,74 @@ view: order_items {
     sql: ${TABLE}."USER_ID" ;;
   }
 
+  measure: avg_sale_price {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: avg_spend_per_customer {
+    type: number
+    sql: ${total_sale_price} / ${users.count} ;;
+    value_format_name: usd
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: cumulative_total_sales {
+    type: running_total
+    sql: ${total_sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: gross_margin_percentage {
+    type: number
+    sql: ${total_gross_margin_amount} / ${total_gross_revenue} ;;
+    value_format_name: percent_2
+  }
+
+  measure: item_return_rate {
+    type: number
+    sql: ${number_of_items_returned} / ${count} ;;
+    value_format_name: percent_2
+  }
+
+  measure: number_of_customers_returning_items {
+    type: count_distinct
+    sql: ${user_id} ;;
+    filters: [status: "Returned"]
+  }
+
+  measure: number_of_items_returned {
+    type: count
+    filters: [status: "Returned"]
+  }
+
+  measure: percent_of_users_with_returns {
+    type: number
+    sql: ${number_of_customers_returning_items} / ${users.count} ;;
+    value_format_name: percent_2
+  }
+  measure: total_gross_margin_amount {
+    type: number
+    sql: ${total_gross_revenue} - ${inventory_items.total_cost};;
+    value_format_name: usd
+  }
+
+  measure: total_gross_revenue {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    filters: [status : "-Cancelled, -Returned"]
+  }
+
+  measure: total_sale_price {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
   }
 
   # ----- Sets of fields for drilling ------
