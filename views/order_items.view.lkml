@@ -205,11 +205,6 @@ view: order_items {
     type:  count
   }
 
-  measure: gross_margin_percent {
-    type:  number
-    sql: ${total_gross_margin_amount} / ${total_revenue};;
-    drill_fields: [product.category, product.brand]
-  }
   measure: revenue_percent {
     type:  number
     sql: ${sale_price} / ${total_revenue};;
