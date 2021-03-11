@@ -173,4 +173,67 @@ view: order_items {
       users.first_name
     ]
   }
+  #Rich New Additions
+     #Part 0 of Case Study
+  measure: average_sale_price {
+    type:  average
+    sql: ${sale_price};;
+    value_format_name: usd
+  }
+  measure: total_revenue {
+    type:  sum
+    sql: ${sale_price};;
+    value_format_name: usd
+    filters: [order_items.status: "Processing"]
+  }
+#  measure: total_gross_margin_amount {
+ ##   type:  number
+#    sql: ${total_revenue} - ${inventory_items.total_cost};;
+##    value_format_name: usd
+#  }
+  measure: average_gross_margin_amount {
+    type:  number
+    sql: ${total_gross_margin_amount} / ${products.count} ;;
+    value_format_name: usd
+  }
+  measure: returned_items_count {
+    type:  count
+    filters: [order_items.status: "Returned"]
+  }
+
+  measure: all_item_count {
+    type:  count
+  }
+
+  measure: gross_margin_percent {
+    type:  number
+    sql: ${total_gross_margin_amount} / ${total_revenue};;
+    drill_fields: [product.category, product.brand]
+  }
+  measure: revenue_percent {
+    type:  number
+    sql: ${sale_price} / ${total_revenue};;
+    drill_fields: [product.category, product.brand]
+  }
+  measure: sale_per_customer {
+    type:  number
+    sql: ${total_sale_price} / ${users.count} ;;
+    value_format_name: usd
+    drill_fields: [users.age_tiers, users.genders]
+   # customer information, such as customer age groups and genders.
+  }
+  dimension: age_tier {
+    type:  tier
+    tiers:  [15,26,36,51,66]
+    style:  integer
+    sql: ${users.age} ;;
+  }
+
+  dimension: location {
+    type: location
+    sql_latitude: ${distribution_centers.latitude} ;;
+    sql_longitude: ${distribution_centers.longitude} ;;
+  }
+
+
 }
